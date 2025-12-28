@@ -1,38 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let selectedAnswer = null;
+  const answers = {};
 
-  function selectAnswer(ans) {
-    selectedAnswer = ans;
-    document.getElementById("status").innerText = "Seçilen: " + ans;
-  }
+  // Kartlardaki butonlara tıklama olayı
+  document.querySelectorAll(".card").forEach((card) => {
+    const question = card.dataset.question;
 
-  document.getElementById("btn-olumlu").onclick = () => selectAnswer("olumlu");
-  document.getElementById("btn-olumsuz").onclick = () => selectAnswer("olumsuz");
+    card.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Önceki seçimi temizle
+        card.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+        // Yeni seçimi işaretle
+        btn.classList.add("selected");
 
-  document.getElementById("btn-submit").onclick = async () => {
-    if (!selectedAnswer) {
-      alert("Lütfen bir seçenek seçin");
+        // Cevabı kaydet
+        const isPositive = btn.classList.contains("positive");
+        answers[question] = isPositive ? "Olumlu" : "Olumsuz";
+      });
+    });
+  });
+
+  // Gönder butonu
+  document.getElementById("submit").addEventListener("click", async () => {
+    const cards = document.querySelectorAll(".card");
+    if (Object.keys(answers).length < cards.length) {
+      alert("Lütfen tüm soruları cevaplayınız.");
       return;
     }
 
-    const comment = document.getElementById("comment").value;
+    // Her bir cevabı gönder
+    for (const [question, answer] of Object.entries(answers)) {
+      // İlgili kartı bulup açıklamasını alalım
+      const card = Array.from(cards).find(c => c.dataset.question === question);
+      const comment = card.querySelector("textarea").value;
 
-    const res = await fetch("http://localhost:3000/cevap", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        question_id: 1,
-        answer: selectedAnswer,
-        comment: comment,
-      }),
-    });
-
-    if (res.ok) {
-      document.getElementById("status").innerText = "✅ Kaydedildi!";
-    } else {
-      document.getElementById("status").innerText = "❌ Hata!";
+      try {
+        await fetch("/cevap", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            question_id: question, // Basitlik için soru metnini ID olarak kullanıyoruz
+            answer: answer,
+            comment: comment
+          })
+        });
+      } catch (err) {
+        console.error("Hata:", err);
+      }
     }
-  };
+
+    alert("Anketiniz başarıyla gönderildi! Teşekkür ederiz.");
+    window.location.reload();
+  });
 });
