@@ -104,10 +104,22 @@ body {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
+.survey,
+#results {
+  max-width: 700px;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
 .survey {
   max-width: 800px;
   margin: 20px auto 40px auto;
   padding: 0 20px;
+}
+
+.card {
+  padding: 16px;
 }
 
 .card {
@@ -354,4 +366,23 @@ h2 {
   .title p {
     font-size: 11px;
   }
+}
+
+@media (max-width: 768px) {
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttons button {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  #submit {
+    width: 100%;
+  }
+
 }
