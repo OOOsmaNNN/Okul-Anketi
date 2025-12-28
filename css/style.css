@@ -75,6 +75,11 @@ body {
   transform: scale(1.1) rotate(5deg);
 }
 
+.logo-left img {
+  width: 120px;
+  height: 120px;
+}
+
 .title h1 {
   font-size: 26px;
   font-weight: 700;
@@ -355,8 +360,8 @@ h2 {
   }
 
   .logo img {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
   }
 
   .title h1 {

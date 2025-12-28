@@ -1,34 +1,38 @@
-const cards = document.querySelectorAll(".card");
-const resultsDiv = document.getElementById("results");
+document.addEventListener("DOMContentLoaded", () => {
+  let selectedAnswer = null;
 
-cards.forEach(card => {
-  const buttons = card.querySelectorAll("button");
+  function selectAnswer(ans) {
+    selectedAnswer = ans;
+    document.getElementById("status").innerText = "Seçilen: " + ans;
+  }
 
-  buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      buttons.forEach(b => b.classList.remove("selected"));
-      btn.classList.add("selected");
-      card.dataset.answer = btn.textContent;
+  document.getElementById("btn-olumlu").onclick = () => selectAnswer("olumlu");
+  document.getElementById("btn-olumsuz").onclick = () => selectAnswer("olumsuz");
+
+  document.getElementById("btn-submit").onclick = async () => {
+    if (!selectedAnswer) {
+      alert("Lütfen bir seçenek seçin");
+      return;
+    }
+
+    const comment = document.getElementById("comment").value;
+
+    const res = await fetch("http://localhost:3000/cevap", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question_id: 1,
+        answer: selectedAnswer,
+        comment: comment,
+      }),
     });
-  });
-});
 
-document.getElementById("submit").addEventListener("click", () => {
-  resultsDiv.innerHTML = "";
-
-  cards.forEach(card => {
-    const question = card.dataset.question;
-    const answer = card.dataset.answer || "Cevap verilmedi";
-    const comment = card.querySelector("textarea").value;
-
-    const div = document.createElement("div");
-    div.className = "result-item";
-    div.innerHTML = `
-      <strong>${question}</strong><br>
-      Cevap: ${answer}<br>
-      Açıklama: ${comment || "-"}
-    `;
-
-    resultsDiv.appendChild(div);
-  });
+    if (res.ok) {
+      document.getElementById("status").innerText = "✅ Kaydedildi!";
+    } else {
+      document.getElementById("status").innerText = "❌ Hata!";
+    }
+  };
 });
