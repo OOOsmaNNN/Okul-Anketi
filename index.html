@@ -1,50 +1,69 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta charset="UTF-8">
-  <title>Okul Anketi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Okul Değerlendirme Anketi - Kılavuzlu Abdülgani Seyithanoğlu Ortaokulu</title>
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<h1>📋 Okul Değerlendirme Anketi</h1>
-
-<div class="survey">
-
-  <div class="card" data-question="Okulun genel temizliğini nasıl buluyorsunuz?">
-    <h3>Okulun genel temizliğini nasıl buluyorsunuz?</h3>
-    <div class="buttons">
-      <button class="positive">Olumlu</button>
-      <button class="negative">Olumsuz</button>
+  <header class="header">
+    <div class="header-content">
+      <div class="logo logo-left">
+        <img src="assets/logo.png" alt="Okul Logosu">
+      </div>
+      <div class="title">
+        <h1>Kılavuzlu Abdülgani Seyithanoğlu Ortaokulu</h1>
+      </div>
+      <div class="logo logo-right">
+        <img src="assets/logo2.png" alt="Türk Bayrağı">
+      </div>
     </div>
-    <textarea placeholder="Açıklama (isteğe bağlı)"></textarea>
+  </header>
+
+  <h2 class="survey-title">📋 Okul Değerlendirme Anketi</h2>
+
+  <div class="survey">
+
+    <div class="card" data-question="Okulun genel temizliğini nasıl buluyorsunuz?">
+      <h3>Okulun genel temizliğini nasıl buluyorsunuz?</h3>
+      <div class="buttons">
+        <button class="positive">Olumlu</button>
+        <button class="negative">Olumsuz</button>
+      </div>
+      <textarea placeholder="Açıklama (isteğe bağlı)"></textarea>
+    </div>
+
+    <div class="card" data-question="Öğretmenlerin öğrencilere yaklaşımı nasıl?">
+      <h3>Öğretmenlerin öğrencilere yaklaşımı nasıl?</h3>
+      <div class="buttons">
+        <button class="positive">Olumlu</button>
+        <button class="negative">Olumsuz</button>
+      </div>
+      <textarea placeholder="Açıklama (isteğe bağlı)"></textarea>
+    </div>
+
+    <div class="card" data-question="Okulun fiziki imkanları yeterli mi?">
+      <h3>Okulun fiziki imkanları yeterli mi?</h3>
+      <div class="buttons">
+        <button class="positive">Olumlu</button>
+        <button class="negative">Olumsuz</button>
+      </div>
+      <textarea placeholder="Açıklama (isteğe bağlı)"></textarea>
+    </div>
+
   </div>
 
-  <div class="card" data-question="Öğretmenlerin öğrencilere yaklaşımı nasıl?">
-    <h3>Öğretmenlerin öğrencilere yaklaşımı nasıl?</h3>
-    <div class="buttons">
-      <button class="positive">Olumlu</button>
-      <button class="negative">Olumsuz</button>
-    </div>
-    <textarea placeholder="Açıklama (isteğe bağlı)"></textarea>
-  </div>
+  <button id="submit">Anketi Gönder</button>
 
-  <div class="card" data-question="Okulun fiziki imkanları yeterli mi?">
-    <h3>Okulun fiziki imkanları yeterli mi?</h3>
-    <div class="buttons">
-      <button class="positive">Olumlu</button>
-      <button class="negative">Olumsuz</button>
-    </div>
-    <textarea placeholder="Açıklama (isteğe bağlı)"></textarea>
-  </div>
+  <h2>📊 Anket Sonuçları</h2>
+  <div id="results"></div>
 
-</div>
-
-<button id="submit">Anketi Gönder</button>
-
-<h2>📊 Anket Sonuçları</h2>
-<div id="results"></div>
-
-<script src="js/app.js"></script>
+  <script src="js/app.js"></script>
 </body>
+
 </html>
