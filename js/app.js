@@ -1,28 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
   const answers = {};
 
-  // Kartlardaki butonlar
+  // Buton seçimleri
   document.querySelectorAll(".card").forEach((card) => {
     const questionId = card.dataset.questionId;
 
     card.querySelectorAll("button").forEach((btn) => {
       btn.addEventListener("click", () => {
         // Önceki seçimleri temizle
-        card.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+        card.querySelectorAll("button").forEach(b =>
+          b.classList.remove("selected")
+        );
 
         // Yeni seçimi işaretle
         btn.classList.add("selected");
 
-        // Cevabı kaydet
+        // SADECE cevabı kaydet (yorum yok!)
         answers[questionId] = {
-          cevap: btn.classList.contains("positive") ? "Olumlu" : "Olumsuz",
-          yorum: card.querySelector("textarea").value
+          cevap: btn.classList.contains("positive") ? "Olumlu" : "Olumsuz"
         };
       });
     });
   });
 
-  // Gönder butonu
+  // Gönder
   document.getElementById("submit").addEventListener("click", async () => {
     const cards = document.querySelectorAll(".card");
 
@@ -31,9 +32,20 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // 🔥 SUBMIT ANINDA YORUMLARI OKU
+    const finalAnswers = {};
+
+    cards.forEach(card => {
+      const qid = card.dataset.questionId;
+      finalAnswers[qid] = {
+        cevap: answers[qid].cevap,
+        yorum: card.querySelector("textarea").value.trim()
+      };
+    });
+
     try {
       await db.collection("anketler").add({
-        cevaplar: answers,
+        cevaplar: finalAnswers,
         tarih: firebase.firestore.FieldValue.serverTimestamp()
       });
 
