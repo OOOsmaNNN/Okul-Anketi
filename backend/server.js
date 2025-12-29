@@ -11,10 +11,11 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, '..')));
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASS || "root",
-  database: process.env.DB_NAME || "anket_db"
+  host: process.env.DB_HOST || process.env.MYSQLHOST || "localhost",
+  user: process.env.DB_USER || process.env.MYSQLUSER || "root",
+  password: process.env.DB_PASS || process.env.MYSQLPASSWORD || "root",
+  database: process.env.DB_NAME || process.env.MYSQLDATABASE || "anket_db",
+  port: process.env.DB_PORT || process.env.MYSQLPORT || 3306
 });
 
 db.connect(err => {

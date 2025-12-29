@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Okul Değerlendirme Anketi - Kılavuzlu Abdülgani Seyithanoğlu Ortaokulu</title>
+
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -29,7 +30,7 @@
 
   <div class="survey">
 
-    <div class="card" data-question="Okulun genel temizliğini nasıl buluyorsunuz?">
+    <div class="card" data-question-id="1">
       <h3>Okulun genel temizliğini nasıl buluyorsunuz?</h3>
       <div class="buttons">
         <button class="positive">Olumlu</button>
@@ -38,7 +39,7 @@
       <textarea placeholder="Açıklama (isteğe bağlı)"></textarea>
     </div>
 
-    <div class="card" data-question="Öğretmenlerin öğrencilere yaklaşımı nasıl?">
+    <div class="card" data-question-id="2">
       <h3>Öğretmenlerin öğrencilere yaklaşımı nasıl?</h3>
       <div class="buttons">
         <button class="positive">Olumlu</button>
@@ -47,7 +48,7 @@
       <textarea placeholder="Açıklama (isteğe bağlı)"></textarea>
     </div>
 
-    <div class="card" data-question="Okulun fiziki imkanları yeterli mi?">
+    <div class="card" data-question-id="3">
       <h3>Okulun fiziki imkanları yeterli mi?</h3>
       <div class="buttons">
         <button class="positive">Olumlu</button>
@@ -59,11 +60,32 @@
   </div>
 
   <button id="submit">Anketi Gönder</button>
+  <p id="status" style="text-align:center; font-weight:600;"></p>
 
   <h2>📊 Anket Sonuçları</h2>
   <div id="results"></div>
 
-  <script src="js/app.js"></script>
-</body>
+  <!-- 🔥 FIREBASE SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
+  <!-- 🔥 FIREBASE CONFIG -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-282TY4GC9334F103jaj7aXJdkf0XqMk",
+      authDomain: "okul-anket-bd350.firebaseapp.com",
+      projectId: "okul-anket-bd350",
+      storageBucket: "okul-anket-bd350.appspot.com",
+      messagingSenderId: "916769218112",
+      appId: "1:916769218112:web:4f7136222af6fd21de49a5"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <!-- KENDİ JS DOSYAN -->
+  <script src="js/app.js"></script>
+
+</body>
 </html>
